@@ -17,4 +17,4 @@ script:
   - travis-cargo build --example simple
 env:
   global:
-    - TRAVIS_CARGO_NIGHTLY_FEATURE=
+    - TRAVIS_CARGO_NIGHTLY_FEATURE=""
