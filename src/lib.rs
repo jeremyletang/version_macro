@@ -7,6 +7,9 @@
 
 #![feature(plugin_registrar, rustc_private, plugin)]
 #![plugin(quasi_macros)]
+#![cfg_attr(feature="clippy", feature(plugin))]
+#![cfg_attr(feature="clippy", plugin(clippy))]
+
 
 extern crate aster;
 extern crate git2;
@@ -26,6 +29,7 @@ use syntax::ast::*;
 use syntax::codemap::Span;
 use syntax::ext::base::*;
 use syntax::ptr::P;
+use syntax::tokenstream::TokenTree;
 use syntax::util::small_vector::SmallVector;
 
 
@@ -37,7 +41,7 @@ pub struct Version {
 
 impl Version {
     pub fn new(s: &str) -> Version {
-        let split_v: Vec<&str> = s.split(".").collect();
+        let split_v: Vec<&str> = s.split('.').collect();
         Version {
             major: u32::from_str_radix(split_v[0], 10).unwrap(),
             minor: u32::from_str_radix(split_v[1], 10).unwrap(),
@@ -58,19 +62,20 @@ fn read_infos_from_toml() -> (String, String) {
     let mut parser = toml::Parser::new(&input);
     // lets assume cargo can validate himself that Cargo.toml is valid
     let cargo_toml = parser.parse().unwrap();
-    let package = match cargo_toml.get(&"package".to_string()).unwrap() {
-        &Value::Table(ref t) => t.clone(),
+    let package = match *cargo_toml.get(&"package".to_string()).unwrap() {
+        Value::Table(ref t) => t.clone(),
         _ => unreachable!()
     };
-    let version = match package.get(&"version".to_string()).unwrap() {
-        &Value::String(ref v) => v.clone(),
+    let version = match *package.get(&"version".to_string()).unwrap() {
+        Value::String(ref v) => v.clone(),
         _ => unreachable!()
     };
-    let bin_name = match package.get(&"name".to_string()).unwrap() {
-        &Value::String(ref v) => v.clone(),
+    let bin_name = match *package.get(&"name".to_string()).unwrap() {
+        Value::String(ref v) => v.clone(),
         _ => unreachable!()
     };
-    return (version, bin_name);
+
+    (version, bin_name)
 }
 
 fn make_build_number() -> String {
@@ -178,7 +183,7 @@ pub fn expand_version<'cx>(
     items.push_all(make_const_items(cx, version, &build_nb, &sha1, &bin_name));
     items.push_all(make_func_items(cx));
 
-    return MacEager::items(items);
+    MacEager::items(items)
 }
 
 

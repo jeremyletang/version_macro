@@ -2,6 +2,11 @@
 name = "version_macro"
 version = "0.1.0"
 authors = ["jeremyletang <letang.jeremy@gmail.com>"]
+description = "version generation using syntax extension"
+license = "MIT/APACHE"
+readme = "./README.md"
+homepage = "https://github.com/jeremyletang/version_macro"
+repository = "https://github.com/jeremyletang/version_macro"
 
 [lib]
 name = "version_macro"
@@ -9,10 +14,14 @@ plugin = true
 
 
 [dependencies]
-aster = { version = "^0.19.0", default-features = false }
+aster = { version = "^0.20.0", default-features = false }
 git2 = "0.3"
-quasi = { version = "^0.13.0", default-features = false }
-quasi_codegen = { version = "^0.13.0", optional = true }
-quasi_macros = { version = "^0.13.0", optional = false }
+quasi = { version = "^0.14.0", default-features = false }
+quasi_codegen = { version = "^0.14.0", optional = true }
+quasi_macros = { version = "^0.14.0", optional = false }
 time = "0.1"
 toml = "0.1"
+clippy = {version = "*", optional = true}
+
+[features]
+default = []
