@@ -15,3 +15,6 @@ before_script:
 script:
   - travis-cargo build
   - travis-cargo build --example simple
+env:
+  global:
+    - TRAVIS_CARGO_NIGHTLY_FEATURE=
