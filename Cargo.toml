@@ -1,0 +1,18 @@
+[package]
+name = "version_macro"
+version = "0.1.0"
+authors = ["jeremyletang <letang.jeremy@gmail.com>"]
+
+[lib]
+name = "version_macro"
+plugin = true
+
+
+[dependencies]
+aster = { version = "^0.19.0", default-features = false }
+git2 = "0.3"
+quasi = { version = "^0.13.0", default-features = false }
+quasi_codegen = { version = "^0.13.0", optional = true }
+quasi_macros = { version = "^0.13.0", optional = false }
+time = "0.1"
+toml = "0.1"
