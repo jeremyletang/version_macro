@@ -1,5 +1,6 @@
 version_macro
 =============
+[![Build Status](https://travis-ci.org/jeremyletang/version_macro.svg?branch=master)](https://travis-ci.org/jeremyletang/version_macro)
 
 ## Cargo
 *version_macro* is not available via crates.io for now. Add this line to your
