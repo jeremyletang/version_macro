@@ -105,6 +105,7 @@ fn make_git_sha1() -> String {
 
 fn make_func_items(cx: &mut ExtCtxt) -> SmallVector<P<Item>> {
     let fn_format = quote_item!(cx,
+        #[allow(dead_code)]
         pub fn format() -> String {
             format!("{} version {} (git rev {}; build {})",
                 BIN_NAME, VERSION, &GIT_SHA1[..4], BUILD_NUMBER
@@ -113,6 +114,7 @@ fn make_func_items(cx: &mut ExtCtxt) -> SmallVector<P<Item>> {
     ).unwrap();
 
     let fn_format_full = quote_item!(cx,
+        #[allow(dead_code)]
         pub fn format_full() -> String {
             format!("{} version {}\ngit revision {}\nbuild {})",
                 BIN_NAME, VERSION, GIT_SHA1, BUILD_NUMBER)
